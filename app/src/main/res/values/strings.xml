@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BookReader</string>
+    <string name="create_act">Please enter a valid email and a password that is at least 6 characters long</string>
+    <string name="login_cred">Enter your Credentials</string>
+    <string name="sure">Are you sure you want to delete this book?</string>
+    <string name="action">This Action is not reversible</string>
+</resources>
