@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+
 
 package com.example.bookreader.screens.home
 
@@ -47,10 +47,10 @@ import com.example.bookreader.model.MBook
 import com.example.bookreader.navigation.ReaderScreens
 import com.google.firebase.auth.FirebaseAuth
 
-@Preview
+
 @Composable
 fun Home(
-    navController: NavController = NavController(LocalContext.current),
+    navController: NavController,
     viewModel: HomeScreenViewModel= hiltViewModel()
 ){
     Scaffold (topBar = {

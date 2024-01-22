@@ -38,8 +38,7 @@ fun ReaderApp(){
     // A surface container using the 'background' color from the theme
     Surface(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 46.dp),
+            .fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
         Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
@@ -48,6 +47,7 @@ fun ReaderApp(){
 
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

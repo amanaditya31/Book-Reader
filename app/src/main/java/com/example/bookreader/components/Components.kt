@@ -226,7 +226,9 @@ fun FABContent(onTap: () -> Unit) {
     FloatingActionButton(onClick = {onTap() },
         shape= RoundedCornerShape(50.dp),
         containerColor = MaterialTheme.colorScheme.primaryContainer) {
-        Icon(painter = rememberVectorPainter(Icons.Default.Add), contentDescription="Add a Book", tint=MaterialTheme.colorScheme.onPrimaryContainer)
+        Icon(painter = rememberVectorPainter(Icons.Default.Add),
+            contentDescription="Add a Book",
+            tint=MaterialTheme.colorScheme.onPrimaryContainer)
     }
 }
 

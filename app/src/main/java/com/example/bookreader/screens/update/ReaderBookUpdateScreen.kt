@@ -57,6 +57,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import com.example.bookreader.R
 import com.example.bookreader.components.InputField
@@ -72,7 +73,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun BookUpdateScreen(navController: NavController,
+fun BookUpdateScreen(navController: NavHostController,
                      bookItemId: String,
                      viewModel: HomeScreenViewModel= hiltViewModel()){
 
@@ -135,14 +136,15 @@ fun ShowSimpleForm(book: MBook,
     val isFinishedReading= remember {
         mutableStateOf(false)
     }
+    val ratingVal=remember{
+        mutableStateOf(0)
+    }
+
     SimpleForm(defaultValue = if(book.notes.toString().isNotEmpty()) book.notes.toString()
                                 else "No thoughts Available"){note->
         notesText.value=note
     }
 
-    val ratingVal=remember{
-        mutableStateOf(0)
-    }
 
     Row(modifier= Modifier.padding(4.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -201,7 +203,7 @@ fun ShowSimpleForm(book: MBook,
 
         val bookToUpdate= hashMapOf(
             "finished_reading_at" to isFinishedTimeStamp,
-            "started_reading_at" to isStartedReading,
+            "started_reading_at" to isStartedTimeStamp,
             "rating" to ratingVal.value,
             "notes" to notesText.value).toMap()
 
@@ -213,7 +215,7 @@ fun ShowSimpleForm(book: MBook,
                     .update(bookToUpdate)
                     .addOnCompleteListener{task->
                         showToast(context, "Book Updated Succesfully")
-                        navController.popBackStack()
+                        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
 
                         Log.d("Success", "ShowSimpleForm: ${task.result.toString()}")
 
@@ -337,10 +339,11 @@ fun SimpleForm(
 
 @Composable
 fun ShowBookUpdate(bookInfo: DataOrException<List<MBook>, Boolean, Exception>, bookItemId: String) {
-    Row(modifier=Modifier){
+    Row(){
         Spacer(modifier=Modifier.width(43.dp))
         if(bookInfo.data!=null){
-            Column(modifier = Modifier.padding(4.dp), verticalArrangement = Arrangement.Center)
+            Column(modifier = Modifier.padding(4.dp),
+                verticalArrangement = Arrangement.Center)
             {
                 CardListItem(book=bookInfo.data!!.first{mBook->
                     mBook.googleBookId==bookItemId
